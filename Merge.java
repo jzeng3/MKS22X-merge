@@ -3,8 +3,11 @@ import java.util.*;
 public class Merge{
   public static void main(String[] args){
     int[] ary = {0,1,5,32,7,5,3};
-
+    int[] arySub1 = {0,1};
+    int[] arySub2 = {5,32};
     mergesort(ary, 0, ary.length - 1);
+    int[] merge = sort(arySub1, arySub2);
+    System.out.println(Arrays.toString(merge));
   }
 
   public static void mergesort(int[]data){
@@ -13,6 +16,7 @@ public class Merge{
   public static void mergesort(int[] data, int lo, int hi){
     System.out.println("mergesort "+Arrays.toString(data)+", "+lo+", "+hi);
     if (lo >= hi){
+      System.out.println("return");
       return;
     }
     int mid = (lo + hi) / 2;
@@ -26,27 +30,36 @@ public class Merge{
     }
     for (int i = 0; i < tempRight.length; i++){
       int j = i+mid+1;
-      System.out.println("i+mid+1: "+j);
+    //  System.out.println("i+mid+1: "+j);
       tempRight[i] = data[i+mid+1];
     }
-    System.out.println(Arrays.toString(tempLeft));
-    System.out.println(Arrays.toString(tempRight));
+    System.out.println("tempLeft: "+Arrays.toString(tempLeft));
+    System.out.println("tempRight: "+Arrays.toString(tempRight));
     mergesort(data, lo, mid);
     mergesort(data, mid+1, hi);
+    System.out.println("after mergesort recursion calls");
 
     }
   //  System.out.println("done with everything");
-  
+
 
   public static int[] sort(int[] data1, int[] data2){
     int[] mergedAry = new int[data1.length + data2.length];
-    int index = 0;
-    for (int i = 0; i < data1.length; i++){
-      if (data1.length <= data2.length){
-        mergedAry[index] = data1[i];
+    int index = 0; // merged array index
+    int d1index = 0; // data1 index
+    int d2index = 0; // data2 index
+    int numComparisons = Math.min(data1.length, data2.length);
+    for (int i = 0; i < numComparisons; i++){
+
+      if (data1[d1index] <= data2[d2index]){
+        mergedAry[index] = data1[d1index];
+        System.out.println(mergedAry[index]);
+        d1index++;
       }else{
-        mergedAry[index] = data2[i];
+        mergedAry[index] = data2[d2index];
+        d2index++;
       }
+      index++;
     }
     return mergedAry;
   }
