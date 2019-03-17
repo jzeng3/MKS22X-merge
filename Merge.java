@@ -47,26 +47,35 @@ public class Merge{
   //  System.out.println("done with everything");
 
   public static int[] merge(int[] data, int lo, int mid, int hi){
-    int[] tempLeft = new int[mid - lo +1];
-    int[] tempRight = new int[hi - mid];
-    System.out.println(Arrays.toString(tempLeft));
-    System.out.println(Arrays.toString(tempRight));
-    int[] mergedAry = new int[tempLeft.length + tempRight.length];
+    int[] tempLeft = new int[mid - lo +1]; // temporary left array
+    int[] tempRight = new int[hi - mid]; // temporary right array
+    System.out.println("templeft: "+Arrays.toString(tempLeft));
+    System.out.println("tempright: "+Arrays.toString(tempRight));
+    int[] mergedAry = new int[tempLeft.length + tempRight.length]; // merged array
+    // copy over values from original array into left, right arrays
+    for (int i = 0; i < tempLeft.length; i++){
+      tempLeft[i] = data[lo+i];
+    }
+    for (int i = 0; i < tempRight.length; i++){
+      int j = i+mid+1;
+    //  System.out.println("i+mid+1: "+j);
+      tempRight[i] = data[j];
+    }
     int left = 0; // left array index
     int right = 0; // right array index index
-    for (int i = 0; i < mergedAry.length; i++){
-
+    for (int i = 0; i < data.length; i++){
+      System.out.println("templeft: "+tempLeft.length);
       if ( (left < tempLeft.length && right < tempRight.length
-            && tempLeft[left] <= tempRight[right]) ||
-            right >= tempRight.length){
-        mergedAry[i] = tempLeft[left];
+            && tempLeft[left] <= tempRight[right])){
+        data[i] = tempLeft[left];
         left++;
-        System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
+      //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
-      else{
-        mergedAry[i] = tempRight[right];
+      else if ((left < tempLeft.length && right < tempRight.length
+                && tempRight[right] < tempLeft[left])){
+        data[i] = tempRight[right];
         right++;
-        System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
+      //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
     }
     return mergedAry;
