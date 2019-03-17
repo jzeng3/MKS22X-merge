@@ -45,21 +45,22 @@ public class Merge{
 
   public static int[] sort(int[] data1, int[] data2){
     int[] mergedAry = new int[data1.length + data2.length];
-    int index = 0; // merged array index
     int d1index = 0; // data1 index
     int d2index = 0; // data2 index
-    int numComparisons = Math.min(data1.length, data2.length);
-    for (int i = 0; i < numComparisons; i++){
+    for (int i = 0; i < mergedAry.length; i++){
 
-      if (data1[d1index] <= data2[d2index]){
-        mergedAry[index] = data1[d1index];
-        System.out.println(mergedAry[index]);
+      if ( (d1index < data1.length && d2index < data2.length
+            && data1[d1index] <= data2[d2index]) ||
+            d2index >= data2.length){
+        mergedAry[i] = data1[d1index];
         d1index++;
-      }else{
-        mergedAry[index] = data2[d2index];
-        d2index++;
+        System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
-      index++;
+      else{
+        mergedAry[i] = data2[d2index];
+        d2index++;
+        System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
+      }
     }
     return mergedAry;
   }
