@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 public class Merge{
   public static void main(String[] args){
-    int[] ary = {0,1,5,32,7,5,3};
+    int[] ary = {32,5,1,0,7,5,3};
     int[] arySub1 = {1,4,7,9};
     int[] arySub2 = {5,32};
     mergesort(ary, 0, ary.length - 1);
@@ -38,10 +38,11 @@ public class Merge{
     System.out.println("tempRight: "+Arrays.toString(tempRight));
     mergesort(data, lo, mid);
     mergesort(data, mid+1, hi);
-    System.out.println("after mergesort recursion calls");
+    System.out.println("AFTER MERGESORT CALLS");
     System.out.println("tempLeft: "+Arrays.toString(tempLeft));
     System.out.println("tempRight: "+Arrays.toString(tempRight));
-    sort(tempLeft,tempRight);
+    int[] copy = new int[tempLeft.length + tempRight.length];
+    copy = sort(tempLeft,tempRight);
     }
   //  System.out.println("done with everything");
 
