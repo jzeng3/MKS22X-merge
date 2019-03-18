@@ -12,37 +12,19 @@ public class Merge{
   }
 
   public static void mergesort(int[]data){
-    mergesort(data,0,data.length-1);
+    return;
   }
   public static void mergesort(int[] data, int lo, int hi){
   //  System.out.println("mergesort "+Arrays.toString(data)+", "+lo+", "+hi);
     if (lo >= hi){
-    //  System.out.println("return");
       return;
     }
     int mid = (lo + hi) / 2;
     //System.out.println("mid: "+mid);
-    int[] tempLeft = new int[mid - lo +1];
-    int[] tempRight = new int[hi - mid];
-    //System.out.println("tempLeft length: "+tempLeft.length);
-    //System.out.println("tempRight length: "+tempRight.length);
-    for (int i = 0; i < tempLeft.length; i++){
-      tempLeft[i] = data[lo+i];
-    }
-    for (int i = 0; i < tempRight.length; i++){
-      int j = i+mid+1;
-    //  System.out.println("i+mid+1: "+j);
-      tempRight[i] = data[i+mid+1];
-    }
-    System.out.println("tempLeft: "+Arrays.toString(tempLeft));
-    System.out.println("tempRight: "+Arrays.toString(tempRight));
     mergesort(data, lo, mid);
     mergesort(data, mid+1, hi);
     System.out.println("AFTER MERGESORT CALLS");
-    System.out.println("tempLeft: "+Arrays.toString(tempLeft));
-    System.out.println("tempRight: "+Arrays.toString(tempRight));
-    int[] mergedAry = new int[tempLeft.length + tempRight.length];
-    mergedAry = merge(data, lo, mid, hi); // merge array at current level
+    merge(data, lo, mid, hi); // merge array at current level
     }
   //  System.out.println("done with everything");
 
@@ -63,22 +45,27 @@ public class Merge{
     }
     int left = 0; // left array index
     int right = 0; // right array index index
-    for (int i = 0; i < data.length; i++){
+    int merge = lo; // merged array index
+    /* Compare current element in left and right array while
+       there are still element(s) in both arrays
+    */
+    while (left < tempLeft.length && right < tempRight.length){
       System.out.println("templeft: "+tempLeft.length);
-      if ( (left < tempLeft.length && right < tempRight.length
-            && tempLeft[left] <= tempRight[right])){
-        data[i] = tempLeft[left];
+      if (tempLeft[left] <= tempRight[right]){
+        data[merge] = tempLeft[left];
         left++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
-      else if ((left < tempLeft.length && right < tempRight.length
-                && tempRight[right] < tempLeft[left])){
-        data[i] = tempRight[right];
+      else if (tempLeft[left] > tempRight[right]){
+        data[merge] = tempRight[right];
         right++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
+      merge++;
     }
-    return mergedAry;
+
+    System.out.println("data: "+Arrays.toString(data));
+    return data;
   }
 
 }
