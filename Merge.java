@@ -3,10 +3,10 @@ import java.util.*;
 public class Merge{
 
   public static void main(String[]args){
-    int[] array = {31,5,7,5,3,1,1,5};
+  /*  int[] array = {31,5,7,5,3,1,1,5};
     mergesort(array);
-    System.out.println(Arrays.toString(array));
-  /*System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+    System.out.println(Arrays.toString(array));*/
+  System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
   int[]MAX_LIST = {1000000000,500,10};
   for(int MAX : MAX_LIST){
     for(int size = 31250; size < 2000001; size*=2){
@@ -37,7 +37,7 @@ public class Merge{
       System.out.println(size +"\t\t"+MAX+"\t"+1.0*mtime/btime);
     }
     System.out.println();
-  }*/
+  }
 }
 
   /*sort the array from least to greatest value. This is a wrapper function*/
@@ -66,16 +66,16 @@ public class Merge{
     int merge = lo;
     int leftLength = mid - lo + 1;
     int rightLength = hi - mid;
-    System.out.println("merge: "+Arrays.toString(data) + Arrays.toString(copy)+" "+lo+" "+mid+" "+hi);
+    //System.out.println("merge: "+Arrays.toString(data) + Arrays.toString(copy)+" "+lo+" "+mid+" "+hi);
     while (left <= mid && right <= hi){
       if (copy[left] <= copy[right]){
-        System.out.println("copy left < right" + copy[left] +" < "+copy[right]);
+      //  System.out.println("copy left < right" + copy[left] +" < "+copy[right]);
         data[merge] = copy[left];
         left++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
       else if (copy[left] > copy[right]){
-          System.out.println("copy left > right" + copy[left] +" > "+copy[right]);
+        //  System.out.println("copy left > right" + copy[left] +" > "+copy[right]);
         data[merge] = copy[right];
         right++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
@@ -93,8 +93,8 @@ public class Merge{
       right++;
       merge++;
     }
-    System.out.println("data: "+Arrays.toString(data));
-    System.out.println("copy: "+Arrays.toString(copy));
+//    System.out.println("data: "+Arrays.toString(data));
+//    System.out.println("copy: "+Arrays.toString(copy));
 
   }
   // takes low and high indices, splits array, then sorts and merges subsections
