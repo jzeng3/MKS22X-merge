@@ -15,7 +15,7 @@ public class Merge{
     return;
   }
   public static void mergesort(int[] data, int lo, int hi){
-  //  System.out.println("mergesort "+Arrays.toString(data)+", "+lo+", "+hi);
+    System.out.println("mergesort "+Arrays.toString(data)+", "+lo+", "+hi);
     if (lo >= hi){
       return;
     }
@@ -23,17 +23,13 @@ public class Merge{
     //System.out.println("mid: "+mid);
     mergesort(data, lo, mid);
     mergesort(data, mid+1, hi);
-    System.out.println("AFTER MERGESORT CALLS");
     merge(data, lo, mid, hi); // merge array at current level
     }
-  //  System.out.println("done with everything");
 
   public static int[] merge(int[] data, int lo, int mid, int hi){
+    System.out.println("merge "+Arrays.toString(data)+", "+lo+", "+mid+", "+hi);
     int[] tempLeft = new int[mid - lo +1]; // temporary left array
     int[] tempRight = new int[hi - mid]; // temporary right array
-    System.out.println("templeft: "+Arrays.toString(tempLeft));
-    System.out.println("tempright: "+Arrays.toString(tempRight));
-    int[] mergedAry = new int[tempLeft.length + tempRight.length]; // merged array
     // copy over values from original array into left, right arrays
     for (int i = 0; i < tempLeft.length; i++){
       tempLeft[i] = data[lo+i];
@@ -43,6 +39,8 @@ public class Merge{
     //  System.out.println("i+mid+1: "+j);
       tempRight[i] = data[j];
     }
+    System.out.println("templeft: "+Arrays.toString(tempLeft));
+    System.out.println("tempright: "+Arrays.toString(tempRight));
     int left = 0; // left array index
     int right = 0; // right array index index
     int merge = lo; // merged array index
@@ -50,7 +48,6 @@ public class Merge{
        there are still element(s) in both arrays
     */
     while (left < tempLeft.length && right < tempRight.length){
-      System.out.println("templeft: "+tempLeft.length);
       if (tempLeft[left] <= tempRight[right]){
         data[merge] = tempLeft[left];
         left++;
@@ -61,6 +58,17 @@ public class Merge{
         right++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
+      merge++;
+    }
+    // copy over leftover elements from either the left or right array
+    while (left < tempLeft.length){
+      data[merge] = tempLeft[left];
+      left++;
+      merge++;
+    }
+    while (right < tempRight.length){
+      data[merge] = tempRight[right];
+      right++;
       merge++;
     }
 
