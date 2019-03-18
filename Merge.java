@@ -58,7 +58,7 @@ public class Merge{
     mergesort(copy, data, lo, mid);
     mergesort(copy, data, mid+1, hi);
     // merge array at current level
-    merge(copy, data, lo, mid, hi);
+    merge(data,copy, lo, mid, hi);
   }
   public static void merge(int[] data, int[] copy, int lo, int mid, int hi){
     int left = lo;
@@ -67,13 +67,15 @@ public class Merge{
     int leftLength = mid - lo + 1;
     int rightLength = hi - mid;
     System.out.println("merge: "+Arrays.toString(data) + Arrays.toString(copy)+" "+lo+" "+mid+" "+hi);
-    while (left < leftLength && right < rightLength){
+    while (left < lo + leftLength && right < mid + 1 + rightLength){
       if (copy[left] <= copy[right]){
+        System.out.println("copy left < right" + copy[left] +" < "+copy[right]);
         data[merge] = copy[left];
         left++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
       else if (copy[left] > copy[right]){
+          System.out.println("copy left > right" + copy[left] +" > "+copy[right]);
         data[merge] = copy[right];
         right++;
       //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
