@@ -42,47 +42,46 @@ public class Merge{
 
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
-    // mergesort(data,0,data.length -1);
+    // make a copy of the array and call mergesort helper
     int[] copy = new int[data.length];
     for (int i = 0; i < data.length; i++){
       copy[i] = data[i];
     }
     mergesort(data,copy,0,data.length-1);
   }
+  // splits array, sorts, and merges, alternating data and copy of data
   public static void mergesort(int[] data, int[] copy, int lo, int hi){
+    // return if reached smallest subsection of array
     if (lo >= hi){
       return;
     }
     int mid = (lo + hi) / 2; // middle index between lo and hi
-    // call mergesort on left and right sections of the array
+    // call mergesort on left and right sections of the array, alternating data and copy
     mergesort(copy, data, lo, mid);
     mergesort(copy, data, mid+1, hi);
     // merge array at current level
     merge(data,copy, lo, mid, hi);
   }
+  // sorts and merges subsection of copy into data
   public static void merge(int[] data, int[] copy, int lo, int mid, int hi){
-    int left = lo;
-    int right = mid + 1;
-    int merge = lo;
-    int leftLength = mid - lo + 1;
-    int rightLength = hi - mid;
-    //System.out.println("merge: "+Arrays.toString(data) + Arrays.toString(copy)+" "+lo+" "+mid+" "+hi);
+    int left = lo; // left side of array index
+    int right = mid + 1; // right side of array index
+    int merge = lo; // index of merged array
+    /* Compare current element in left and right side of the array while
+       there are still element(s) on both sides
+    */
     while (left <= mid && right <= hi){
       if (copy[left] <= copy[right]){
-      //  System.out.println("copy left < right" + copy[left] +" < "+copy[right]);
         data[merge] = copy[left];
         left++;
-      //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
       else if (copy[left] > copy[right]){
-        //  System.out.println("copy left > right" + copy[left] +" > "+copy[right]);
         data[merge] = copy[right];
         right++;
-      //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
       }
       merge++;
     }
-    // copy over leftover elements from either the left or right array
+    // copy over leftover elements from either the left or right array into data
     while (left <= mid){
       data[merge] = copy[left];
       left++;
@@ -93,10 +92,8 @@ public class Merge{
       right++;
       merge++;
     }
-//    System.out.println("data: "+Arrays.toString(data));
-//    System.out.println("copy: "+Arrays.toString(copy));
-
   }
+
   // takes low and high indices, splits array, then sorts and merges subsections
   public static void mergesort(int[] data, int lo, int hi){
     // return if reached smallest subsection of array
@@ -123,8 +120,7 @@ public class Merge{
       int j = i+mid+1;
       tempRight[i] = data[j];
     }
-    //System.out.println("templeft: "+Arrays.toString(tempLeft));
-    //System.out.println("tempright: "+Arrays.toString(tempRight));
+
     int left = 0; // left array index
     int right = 0; // right array index index
     int merge = lo; // merged array index
@@ -135,12 +131,12 @@ public class Merge{
       if (tempLeft[left] <= tempRight[right]){
         data[merge] = tempLeft[left];
         left++;
-      //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
+
       }
       else if (tempLeft[left] > tempRight[right]){
         data[merge] = tempRight[right];
         right++;
-      //  System.out.println("mergedAry["+i+"]: "+mergedAry[i]);
+
       }
       merge++;
     }
