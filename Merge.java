@@ -1,32 +1,63 @@
 import java.io.*;
 import java.util.*;
 public class Merge{
-  public static void main(String[] args){
-    int[] ary = {32,5,1,0,7,5,3};
-    int[] arySub1 = {1,4,7,9};
-    int[] arySub2 = {5,32};
-    mergesort(ary, 0, ary.length - 1);
-    System.out.println(Arrays.toString(ary));
-    //int[] merge = sort(arySub1, arySub2);
-    //System.out.println(Arrays.toString(merge));
+  
+  public static void main(String[]args){
+  System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+  int[]MAX_LIST = {1000000000,500,10};
+  for(int MAX : MAX_LIST){
+    for(int size = 31250; size < 2000001; size*=2){
+      long mtime=0;
+      long btime=0;
+      //average of 5 sorts.
+      for(int trial = 0 ; trial <=5; trial++){
+        int []data1 = new int[size];
+        int []data2 = new int[size];
+        for(int i = 0; i < data1.length; i++){
+          data1[i] = (int)(Math.random()*MAX);
+          data2[i] = data1[i];
+        }
+        long t1,t2;
+        t1 = System.currentTimeMillis();
+        Merge.mergesort(data2);
+        t2 = System.currentTimeMillis();
+        mtime += t2 - t1;
+        t1 = System.currentTimeMillis();
+        Arrays.sort(data1);
+        t2 = System.currentTimeMillis();
+        btime+= t2 - t1;
+        if(!Arrays.equals(data1,data2)){
+          System.out.println("FAIL TO SORT!");
+          System.exit(0);
+        }
+      }
+      System.out.println(size +"\t\t"+MAX+"\t"+1.0*mtime/btime);
+    }
+    System.out.println();
   }
+}
 
+  /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
     return;
   }
+  // takes low and high indices, splits array, then sorts and merges subsections
   public static void mergesort(int[] data, int lo, int hi){
-    System.out.println("mergesort "+Arrays.toString(data)+", "+lo+", "+hi);
+  //  System.out.println("mergesort "+Arrays.toString(data)+", "+lo+", "+hi);
+    // return if reached smallest subsection of array
     if (lo >= hi){
       return;
     }
-    int mid = (lo + hi) / 2;
-    //System.out.println("mid: "+mid);
+    int mid = (lo + hi) / 2; // middle index between lo and hi
+    // call mergesort on left and right sections of the array
     mergesort(data, lo, mid);
     mergesort(data, mid+1, hi);
-    merge(data, lo, mid, hi); // merge array at current level
+    // merge array at current level
+    merge(data, lo, mid, hi);
     }
 
-  public static int[] merge(int[] data, int lo, int mid, int hi){
+  // merge sorts and merges array at given low, mid, and high indices
+  public static void merge(int[] data, int lo, int mid, int hi){
     System.out.println("merge "+Arrays.toString(data)+", "+lo+", "+mid+", "+hi);
     int[] tempLeft = new int[mid - lo +1]; // temporary left array
     int[] tempRight = new int[hi - mid]; // temporary right array
@@ -36,11 +67,10 @@ public class Merge{
     }
     for (int i = 0; i < tempRight.length; i++){
       int j = i+mid+1;
-    //  System.out.println("i+mid+1: "+j);
       tempRight[i] = data[j];
     }
-    System.out.println("templeft: "+Arrays.toString(tempLeft));
-    System.out.println("tempright: "+Arrays.toString(tempRight));
+    //System.out.println("templeft: "+Arrays.toString(tempLeft));
+    //System.out.println("tempright: "+Arrays.toString(tempRight));
     int left = 0; // left array index
     int right = 0; // right array index index
     int merge = lo; // merged array index
@@ -71,9 +101,7 @@ public class Merge{
       right++;
       merge++;
     }
-
-    System.out.println("data: "+Arrays.toString(data));
-    return data;
+    //System.out.println("data: "+Arrays.toString(data));
   }
 
 }
