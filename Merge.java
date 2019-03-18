@@ -66,6 +66,7 @@ public class Merge{
     int merge = lo;
     int leftLength = mid - lo + 1;
     int rightLength = hi - mid;
+    System.out.println("merge: "+Arrays.toString(data) + Arrays.toString(copy)+" "+lo+" "+mid+" "+hi);
     while (left < leftLength && right < rightLength){
       if (copy[left] <= copy[right]){
         data[merge] = copy[left];
@@ -90,6 +91,9 @@ public class Merge{
       right++;
       merge++;
     }
+    System.out.println("data: "+Arrays.toString(data));
+    System.out.println("copy: "+Arrays.toString(copy));
+
   }
   // takes low and high indices, splits array, then sorts and merges subsections
   public static void mergesort(int[] data, int lo, int hi){
