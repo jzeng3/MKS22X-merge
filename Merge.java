@@ -3,7 +3,7 @@ import java.util.*;
 public class Merge{
 
   public static void main(String[]args){
-    int[] array = {31,5,7,5,3};
+    int[] array = {31,5,7,5,3,1,1,5};
     mergesort(array);
     System.out.println(Arrays.toString(array));
   /*System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
@@ -67,7 +67,7 @@ public class Merge{
     int leftLength = mid - lo + 1;
     int rightLength = hi - mid;
     System.out.println("merge: "+Arrays.toString(data) + Arrays.toString(copy)+" "+lo+" "+mid+" "+hi);
-    while (left < lo + leftLength && right < mid + 1 + rightLength){
+    while (left <= mid && right <= hi){
       if (copy[left] <= copy[right]){
         System.out.println("copy left < right" + copy[left] +" < "+copy[right]);
         data[merge] = copy[left];
@@ -83,12 +83,12 @@ public class Merge{
       merge++;
     }
     // copy over leftover elements from either the left or right array
-    while (left < leftLength){
+    while (left <= mid){
       data[merge] = copy[left];
       left++;
       merge++;
     }
-    while (right < rightLength){
+    while (right <= hi){
       data[merge] = copy[right];
       right++;
       merge++;
