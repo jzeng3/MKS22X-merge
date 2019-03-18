@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class Merge{
-  
+
   public static void main(String[]args){
   System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
   int[]MAX_LIST = {1000000000,500,10};
@@ -39,7 +39,7 @@ public class Merge{
 
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
-    return;
+    mergesort(data,0,data.length -1);
   }
   // takes low and high indices, splits array, then sorts and merges subsections
   public static void mergesort(int[] data, int lo, int hi){
@@ -57,8 +57,8 @@ public class Merge{
     }
 
   // merge sorts and merges array at given low, mid, and high indices
-  public static void merge(int[] data, int lo, int mid, int hi){
-    System.out.println("merge "+Arrays.toString(data)+", "+lo+", "+mid+", "+hi);
+  public static int[] merge(int[] data, int lo, int mid, int hi){
+  //  System.out.println("merge "+Arrays.toString(data)+", "+lo+", "+mid+", "+hi);
     int[] tempLeft = new int[mid - lo +1]; // temporary left array
     int[] tempRight = new int[hi - mid]; // temporary right array
     // copy over values from original array into left, right arrays
@@ -102,6 +102,7 @@ public class Merge{
       merge++;
     }
     //System.out.println("data: "+Arrays.toString(data));
+    return data;
   }
 
 }
