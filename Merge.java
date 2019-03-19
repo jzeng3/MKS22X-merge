@@ -100,6 +100,7 @@ public class Merge{
     if (lo >= hi){
       return;
     }
+
     int mid = (lo + hi) / 2; // middle index between lo and hi
     // call mergesort on left and right sections of the array
     mergesort(data, lo, mid);
@@ -107,9 +108,14 @@ public class Merge{
     // merge array at current level
     merge(data, lo, mid, hi);
     }
-
+  // optimized merge!
   // merge sorts and merges array at given low, mid, and high indices
   public static void merge(int[] data, int lo, int mid, int hi){
+    // call insertionSort if section of array is less than or equal to 30 elements
+    if (hi - lo <= 15){
+      insertionSort(data,lo,hi);
+      return;
+    }
     int[] tempLeft = new int[mid - lo +1]; // temporary left array
     int[] tempRight = new int[hi - mid]; // temporary right array
     // copy over values from original array into left, right arrays
@@ -153,5 +159,33 @@ public class Merge{
     }
 
   }
+
+  // sorts array in increasing order
+ public static void insertionSort(int[] data, int lo, int hi){
+   if (hi - lo >= 2){
+     // loop through array, checking number at current index relative to previous numbers
+     for (int i = lo; i <= hi; i++){
+       // current number
+       int original = data[i];
+       int index = i-1;
+
+       while (index >= lo && data[index] > original){
+
+         // store the previous number
+         int temp = data[index];
+
+        // if current num for outer loop is less than the previous number(s)
+             // previous number moves up a space
+             data[index+1] = temp;
+
+             // current number will be put at a smaller index
+             index--;
+         }
+         // set element at index equal to current number (sorted)
+
+         data[index+1] = original;
+       }
+     }
+   }
 
 }
